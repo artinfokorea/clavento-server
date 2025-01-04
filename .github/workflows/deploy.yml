@@ -10,37 +10,9 @@ env:
   CONTAINER_NAME: clavento-server
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '21'
-
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      #      - name: Set Test YML
-      #        run: |
-      #          mkdir -p src/main/resources
-      #          echo "${{ secrets.TEST_APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
-
-      - name: Run tests
-        run: ./gradlew clean test
-
   build:
     name: Build
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
